@@ -1,11 +1,12 @@
 package dev.shoaibsuad.warehouse.controller;
 
-import dev.shoaibsuad.warehouse.entity.User;
 import dev.shoaibsuad.warehouse.model.UserRequest;
 import dev.shoaibsuad.warehouse.model.UserResponse;
 import dev.shoaibsuad.warehouse.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -15,10 +16,17 @@ public class UserController {
 
     @PostMapping
     public UserResponse createUser(UserRequest request) {
-        return userService.createUser(request);
+        return userService.createUser(request).toResponse();
     }
+
+    @GetMapping()
+    public List<UserResponse> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+
     @GetMapping("/{id}")
-    public UserResponse getUserById(@PathVariable  Long id) {
-        return  userService.getUserById(id);
+    public UserResponse getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 }

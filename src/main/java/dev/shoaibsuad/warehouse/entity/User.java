@@ -1,7 +1,7 @@
 package dev.shoaibsuad.warehouse.entity;
 
+import dev.shoaibsuad.warehouse.model.UserResponse;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +19,11 @@ public class User {
     private String email;
     private String password;
 
-
+    public UserResponse toResponse() {
+        UserResponse response = new UserResponse();
+        response.setId(this.id);
+        response.setUsername(this.username);
+        response.setEmail(this.email);
+        return response;
+    }
 }
