@@ -1,6 +1,7 @@
 package dev.shoaibsuad.warehouse.controller;
 
 import dev.shoaibsuad.warehouse.entity.Product;
+import dev.shoaibsuad.warehouse.exception.ResourceNotFoundException;
 import dev.shoaibsuad.warehouse.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,7 +10,7 @@ import org.mockito.Mockito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,7 +22,7 @@ class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private ProductService service;
 
     @Autowired
@@ -51,11 +52,11 @@ class ProductControllerTest {
         mockMvc.perform(get("/products/1"))
                 .andExpect(status().isOk());
     }
-
     @Test
     void testGetProduct_NotFound() throws Exception {
+
         Mockito.when(service.getProductById(1L))
-                .thenThrow(new RuntimeException());
+                .thenThrow(new ResourceNotFoundException("Product not found"));
 
         mockMvc.perform(get("/products/1"))
                 .andExpect(status().isNotFound());
