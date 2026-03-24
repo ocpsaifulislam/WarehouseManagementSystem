@@ -27,10 +27,10 @@ class UserServiceTest {
     void createUser() {
         UserRequest request = new UserRequest("islam3181@gmail.com", "islam3181", "password123");
 
+        User u = new User(1L, request.getEmail(), request.getUsername(), "password123");
+        when(userRepository.save(any(User.class))).thenReturn(u);
         User user = userService.createUser(request);
 
-        User u = new User(1L, request.getEmail(), request.getUsername(), null);
-        when(userRepository.save(any(User.class))).thenReturn(u);
 
         assertNotNull(user);
         assertNotNull(user.getId());

@@ -19,8 +19,8 @@ public class UserService {
     public User createUser(UserRequest request) {
         User entity = new User();
 //        entity.setPassword(request.getPassword());
-        entity.setUsername(request.getUsername());
         entity.setEmail(request.getEmail());
+        entity.setUsername(request.getUsername());
         return userRepository.save(entity);
     }
 
@@ -31,8 +31,8 @@ public class UserService {
 
         UserResponse response = new UserResponse();
         response.setId(user.getId());
-        response.setUsername(user.getUsername());
         response.setEmail(user.getEmail());
+        response.setUsername(user.getUsername());
         return response;
     }
 
@@ -42,8 +42,8 @@ public class UserService {
                 .map(user -> {
                     UserResponse response = new UserResponse();
                     response.setId(user.getId());
-                    response.setUsername(user.getUsername());
                     response.setEmail(user.getEmail());
+                    response.setUsername(user.getUsername());
                     return response;
                 })
                 .toList();

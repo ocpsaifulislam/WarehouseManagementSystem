@@ -22,8 +22,8 @@ public class User {
     public UserResponse toResponse() {
         UserResponse response = new UserResponse();
         response.setId(this.id);
-        response.setUsername(this.username);
         response.setEmail(this.email);
+        response.setUsername(this.username);
         return response;
     }
 }
